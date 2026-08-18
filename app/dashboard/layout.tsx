@@ -21,7 +21,7 @@ export default async function DashboardLayout({
       <Siderar />
       <div className="flex flex-1 flex-col p-2">
         <Header />
-        {children}
+        <div className="flex flex-1">{children}</div>
       </div>
     </div>
   );

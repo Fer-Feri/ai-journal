@@ -14,7 +14,7 @@ const moodBtn: MoodBtnType[] = [
 export default function MoodSelector() {
   const [selectMood, setSelectMood] = useState<number | null>(null);
   return (
-    <div className="flex flex-col justify-center gap-6">
+    <div className="bg-card flex flex-col justify-center gap-6 rounded-sm p-4">
       <p className="bg-primary w-max rounded-sm px-6 py-2 text-white">
         حال امروزت چطوره؟
       </p>
