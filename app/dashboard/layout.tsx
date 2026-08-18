@@ -1,3 +1,4 @@
+import Header from '@/components/layout/Header';
 import Siderar from '@/components/layout/Sidebar';
 import { auth } from '@clerk/nextjs/server';
 import { Metadata } from 'next';
@@ -18,7 +19,10 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen">
       <Siderar />
-      <div className="flex flex-1 flex-col">{children}</div>
+      <div className="flex flex-1 flex-col p-2">
+        <Header />
+        {children}
+      </div>
     </div>
   );
 }

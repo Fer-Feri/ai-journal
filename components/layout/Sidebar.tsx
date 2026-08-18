@@ -4,10 +4,15 @@ import { useUser } from '@clerk/nextjs';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const navItems = [
+type NavItemType =
+  | { href: string; label: string; icon: string; divider?: never }
+  | { divider: true; href?: never; label?: never; icon?: never };
+
+const navItems: NavItemType[] = [
   { href: '/dashboard', label: 'امروز', icon: '✏️' },
   { href: '/dashboard/chart', label: 'نمودار', icon: '📈' },
   { href: '/dashboard/history', label: 'تاریخچه', icon: '🕐' },
+  { divider: true },
   { href: '/dashboard/settings', label: 'تنظیمات', icon: '⚙️' },
 ];
 
@@ -29,7 +34,13 @@ export default function Sidebar() {
 
         {/* منو */}
         <nav className="flex flex-col gap-1">
-          {navItems.map((item) => {
+          {navItems.map((item, index) => {
+            // خط فاصله تنظیمات با بقیه
+            if ('divider' in item)
+              return (
+                <div key={index} className="border-border my-1 border-t" />
+              );
+            // ----
             const isActive = pathname === item.href;
             return (
               <Link
