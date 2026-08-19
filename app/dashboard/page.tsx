@@ -1,6 +1,7 @@
 import EntryForm from '@/components/journal/EntryForm';
 import MoodSelector from '@/components/journal/MoodSelector';
 import StateCards from '@/components/journal/StateCards';
+import MoodChart from '@/components/journal/MoodChart';
 
 export default function DashboardPage() {
   return (
@@ -9,8 +10,9 @@ export default function DashboardPage() {
         <MoodSelector />
         <EntryForm className="flex-1" />
       </div>
-      <div className="bg-card flex flex-1 flex-col rounded-md p-2">
+      <div className="bg-card flex flex-1 flex-col gap-8 rounded-md p-2">
         <StateCards />
+        <MoodChart />
       </div>
     </main>
   );
