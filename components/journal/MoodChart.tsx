@@ -31,7 +31,7 @@ const colors = [
 
 export default function MoodChart() {
   return (
-    <div className="bg-muted border-primary text-primary flex flex-col gap-2 rounded-md border p-2">
+    <div className="bg-muted border-secondary-bg text-primary flex flex-col gap-2 rounded-md border p-2">
       <p className="text-muted-foreground text-xs">روند ۷ روز اخیر</p>
       <ResponsiveContainer width="100%" height={130}>
         <BarChart data={data}>

@@ -2,6 +2,7 @@ import EntryForm from '@/components/journal/EntryForm';
 import MoodSelector from '@/components/journal/MoodSelector';
 import StateCards from '@/components/journal/StateCards';
 import MoodChart from '@/components/journal/MoodChart';
+import RecentEntries from '@/components/journal/RecentEntries';
 
 export default function DashboardPage() {
   return (
@@ -13,6 +14,7 @@ export default function DashboardPage() {
       <div className="bg-card flex flex-1 flex-col gap-8 rounded-md p-2">
         <StateCards />
         <MoodChart />
+        <RecentEntries />
       </div>
     </main>
   );
