@@ -4,7 +4,12 @@ import { useTheme } from '@/lib/theme-context';
 import moment from 'jalali-moment';
 import { useState } from 'react';
 
-export default function Header() {
+type Props = {
+  onSave: () => void;
+  isLoading: boolean;
+};
+
+export default function Header({ onSave, isLoading }: Props) {
   const [date, setDate] = useState(() =>
     moment().locale('fa').format('dddd، D MMMM YYYY'),
   );
@@ -19,8 +24,12 @@ export default function Header() {
       </div>
       {/* 2 */}
       <div className="flex items-center justify-center gap-4">
-        <button className="border-border bg-primary font-ring cursor-pointer rounded-lg border px-4 py-2 text-sm text-white">
-          ذخیره
+        <button
+          onClick={onSave}
+          disabled={isLoading}
+          className="border-border bg-primary font-ring cursor-pointer rounded-lg border px-4 py-2 text-sm text-white"
+        >
+          {isLoading ? '⏳ در حال ذخیره‌سازی...' : 'ذخیره'}
         </button>
         <button
           onClick={toggleTheme}

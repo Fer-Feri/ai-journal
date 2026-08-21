@@ -11,8 +11,12 @@ const moodBtn: MoodBtnType[] = [
   { id: 4, label: 'عالی', sticker: '🤩' },
 ];
 
-export default function MoodSelector() {
-  const [selectMood, setSelectMood] = useState<number | null>(null);
+type Props = {
+  mood: string;
+  onMoodChange: (mood: string) => void;
+};
+
+export default function MoodSelector({ mood, onMoodChange }: Props) {
   return (
     <div className="bg-card flex flex-col justify-center gap-6 rounded-sm p-4">
       <p className="bg-primary w-max rounded-sm px-6 py-2 text-white">
@@ -22,8 +26,8 @@ export default function MoodSelector() {
         {moodBtn.map((btn) => (
           <button
             key={btn.id}
-            onClick={() => setSelectMood(btn.id)}
-            className={`cursor-pointer rounded-sm px-4 py-2 ${selectMood === btn.id ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'}`}
+            onClick={() => onMoodChange(btn.label)}
+            className={`cursor-pointer rounded-sm px-4 py-2 ${mood === btn.label ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'}`}
           >
             {btn.label} {btn.sticker}
           </button>
