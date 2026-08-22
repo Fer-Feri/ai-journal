@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
 
     if (existing)
       return NextResponse.json(
-        { error: 'امروز قبلاً یادداشت ثبت کردی' },
+        { error: 'برای امروز قبلاً یادداشت ثبت کردی' },
         { status: 409 },
       );
 

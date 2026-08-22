@@ -1,4 +1,3 @@
-import Header from '@/components/layout/Header';
 import Siderar from '@/components/layout/Sidebar';
 import { auth } from '@clerk/nextjs/server';
 import { Metadata } from 'next';

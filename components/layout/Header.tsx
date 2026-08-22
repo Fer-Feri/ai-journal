@@ -2,7 +2,6 @@
 
 import { useTheme } from '@/lib/theme-context';
 import moment from 'jalali-moment';
-import { useState } from 'react';
 
 type Props = {
   onSave: () => void;

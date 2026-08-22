@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 type MoodBtnType = { id: number; label: string; sticker: string };
 
 const moodBtn: MoodBtnType[] = [
