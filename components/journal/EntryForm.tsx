@@ -34,12 +34,12 @@ export default function EntryForm({
         {isLoading ? (
           <span className="text-muted-foreground">⏳ در حال تحلیل...</span>
         ) : aiResult ? (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-2">
             <span className="text-primary font-medium">
               ✨ {aiResult.summary}
             </span>
-            <span className="text-muted-foreground text-xs">
-              امتیاز: {aiResult.score} از ۱۰
+            <span className="text-succes text-sm">
+              📜 امتیاز: {aiResult.score} از ۱۰
             </span>
           </div>
         ) : (

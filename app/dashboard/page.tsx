@@ -21,15 +21,32 @@ export default function DashboardPage() {
     if (!content.trim()) return;
     setIsLoading(true);
 
-    const response = await fetch('/api/entries', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content, mood }),
-    });
+    try {
+      const response = await fetch('/api/entries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content, mood }),
+      });
 
-    const data = await response.json();
-    setAiResult(data.aiResult);
-    setIsLoading(false);
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('خطا:', data.error);
+        alert(data.error); // موقتاً برای debug
+        return;
+      }
+
+      setAiResult(data.aiResult);
+      setIsLoading(false);
+      setContent(''); // پاک کردن محتوای فرم بعد از ذخیره
+      setMood('خوب'); // بازنشانی حالت احساسی به حالت پیش‌فرض
+    } catch (error) {
+      console.error('خطا:', error);
+      alert('خطا در ذخیره یادداشت'); // موقتاً برای debug
+      return;
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <main className="flex flex-1 flex-col gap-2 rounded-md p-4">

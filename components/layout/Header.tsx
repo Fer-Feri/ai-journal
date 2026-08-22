@@ -10,9 +10,7 @@ type Props = {
 };
 
 export default function Header({ onSave, isLoading }: Props) {
-  const [date, setDate] = useState(() =>
-    moment().locale('fa').format('dddd، D MMMM YYYY'),
-  );
+  const date = moment().locale('fa').format('dddd، D MMMM YYYY'); // فرمت تاریخ به زبان فارسی
   const { theme, toggleTheme } = useTheme();
 
   return (

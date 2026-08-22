@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // *۱ ===> تحلیل AI
 async function analyzeWithAi(content: string, mood: string) {
-  const response = await fetch('https://api.gapgpt.com/v1/chat/completions', {
+  const response = await fetch('https://api.gapgpt.app/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +21,10 @@ async function analyzeWithAi(content: string, mood: string) {
 {
   "score": عدد بین 1 تا 10,
   "summary": "یک جمله فارسی درباره احساس کاربر"
-}`,
+}
+  با کاربر سعی کن راحت ولی مودبانه جملتو بگی. مثلا با کلمه شما باهاش حرف بزنی .اگر حالش بده اروزی بهتر شدن یا امیدوارم روز های آینده بهتر بشی و ... از این قبیل حرف ها بگی بهش. اگر عالیه جمله ای شبیه اینکه امیدوارم همیشه اینطوری باشی و ... . لازم نیست حتما جمله های منو بگی ، میتونی خلاقیت به خرج بدی تو جمله هایی که به کاربر میگی.
+  وقتی حس کاربر رو میگی، در نهایت جمله، حس کاربر رو بگو و بعد یه جمله امید بخش یا مثبت بهش بگو. مثلا اگر حسش خوبه بگو امیدوارم همیشه اینطوری باشی و ... اگر حسش بد بود بگو امیدوارم روز های آینده بهتر بشه و ... و ... . لازم نیست حتما جمله های منو بگی ، میتونی خلاقیت به خرج بدی تو جمله هایی که به کاربر میگی.
+`,
         },
         {
           role: 'user',
@@ -53,11 +56,31 @@ export async function POST(req: NextRequest) {
       );
 
     const { content, mood } = await req.json();
+
     if (!content.trim() || !mood)
       return NextResponse.json(
         { error: 'محتوا و حالت احساسی الزامی است' },
         { status: 400 },
       );
+
+    // *!چک کن امروز یادداشت داری یا نه
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const existing = await prisma.entry.findFirst({
+      where: {
+        userId,
+        createdAt: { gte: today },
+      },
+    });
+
+    if (existing)
+      return NextResponse.json(
+        { error: 'امروز قبلاً یادداشت ثبت کردی' },
+        { status: 409 },
+      );
+
+    // ===============================
 
     // تحلیل AI
     const aiResult = await analyzeWithAi(content, mood);
