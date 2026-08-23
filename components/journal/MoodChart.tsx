@@ -1,4 +1,7 @@
 'use client';
+
+import { Entry } from '@/types/index';
+import moment from 'jalali-moment';
 import {
   Bar,
   BarChart,
@@ -9,43 +12,88 @@ import {
   YAxis,
 } from 'recharts';
 
-const data = [
-  { day: 'شنبه', shortDay: 'ش', score: 6 },
-  { day: 'یکشنبه', shortDay: 'ی', score: 8 },
-  { day: 'دوشنبه', shortDay: 'د', score: 5 },
-  { day: 'سه‌شنبه', shortDay: 'س', score: 9 },
-  { day: 'چهارشنبه', shortDay: 'چ', score: 7 },
-  { day: 'پنجشنبه', shortDay: 'پ', score: 8 },
-  { day: 'جمعه', shortDay: 'ج', score: 7.5 },
-];
+type Props = { entries: Entry[] };
 
 const colors = [
   'var(--primary)',
   'var(--secondary)',
   'var(--accent)',
-  'var(--success)',
   '#8b5cf6',
   '#f43f5e',
   '#14b8a6',
+  '#f59e0b',
 ];
 
-export default function MoodChart() {
+const dayNames: Record<string, string> = {
+  Saturday: 'شنبه',
+  Sunday: 'یکشنبه',
+  Monday: 'دوشنبه',
+  Tuesday: 'سه‌شنبه',
+  Wednesday: 'چهارشنبه',
+  Thursday: 'پنجشنبه',
+  Friday: 'جمعه',
+};
+
+const shortDay: Record<string, string> = {
+  Saturday: 'ش',
+  Sunday: 'ی',
+  Monday: 'د',
+  Tuesday: 'س',
+  Wednesday: 'چ',
+  Thursday: 'پ',
+  Friday: 'ج',
+};
+
+export default function MoodChart({ entries }: Props) {
+  // ۷ روز اخیر رو بساز
+  const last7Days = Array.from({ length: 7 }, (_, i) => {
+    const date = moment().subtract(i, 'days');
+    const dayKey = date.format('dddd'); // Saturday, Sunday...
+    return {
+      dateStr: date.format('YYYY-MM-DD'),
+      day: dayNames[dayKey] ?? dayKey,
+      shortDay: shortDay[dayKey] ?? '?',
+      score: 0,
+    };
+  }).reverse();
+
+  // یادداشت‌ها رو روی روزها map کن
+  const data = last7Days.map((day) => {
+    const entry = entries.find((e) => {
+      const entryDate = moment(e.createdAt).format('YYYY-MM-DD');
+      return entryDate === day.dateStr;
+    });
+    return {
+      ...day,
+      score: entry?.aiScore ?? 0,
+    };
+  });
+
   return (
-    <div className="bg-muted border-secondary-bg text-primary flex flex-col gap-2 rounded-md border p-2">
+    <div className="bg-muted border-border flex flex-col gap-2 rounded-md border p-2">
       <p className="text-muted-foreground text-xs">روند ۷ روز اخیر</p>
       <ResponsiveContainer width="100%" height={130}>
         <BarChart data={data}>
-          <XAxis dataKey="shortDay" />
+          <XAxis dataKey="shortDay" tick={{ fontSize: 11 }} />
           <YAxis domain={[0, 10]} hide />
           <Tooltip
-            formatter={(value) => [`${value}`, 'امتیاز']}
-            labelFormatter={(label, payload) => {
-              return payload?.[0]?.payload?.day ?? label;
-            }}
+            formatter={(value) => [
+              value === 0 ? 'ثبت نشده' : `${value}`,
+              'امتیاز',
+            ]}
+            labelFormatter={(_, payload) => payload?.[0]?.payload?.day ?? ''}
           />
-          <Bar dataKey="score">
-            {data.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={colors[index]} />
+          <Bar dataKey="score" radius={[4, 4, 0, 0]}>
+            {data.map((item, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={
+                  item.score === 0
+                    ? 'var(--muted-foreground)'
+                    : colors[index % colors.length]
+                }
+                opacity={item.score === 0 ? 0.3 : 1}
+              />
             ))}
           </Bar>
         </BarChart>

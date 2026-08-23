@@ -74,7 +74,7 @@ export default function DashboardPage() {
         </div>
         <div className="bg-card flex flex-1 flex-col gap-8 rounded-md p-2">
           <StateCards entries={entries} />
-          <MoodChart />
+          <MoodChart entries={entries} />
           <RecentEntries entries={entries} />
         </div>
       </div>

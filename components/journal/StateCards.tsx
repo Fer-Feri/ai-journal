@@ -1,19 +1,8 @@
+import { getThisMonthEntries } from '@/lib/date';
 import { Entry } from '@/types/index';
-import moment from 'jalali-moment';
 
 export default function StateCards({ entries }: { entries: Entry[] }) {
-  // ماه و سال شمسی فعلی
-  const currentMonth = moment().locale('fa').format('MM');
-  const currentYear = moment().locale('fa').format('YYYY');
-
-  // فیلتر یادداشت‌های این ماه شمسی
-  const thisMonthEntries = entries.filter((entry) => {
-    const entryDate = moment(entry.createdAt).locale('fa');
-    return (
-      entryDate.format('MM') === currentMonth &&
-      entryDate.format('YYYY') === currentYear
-    );
-  });
+  const thisMonthEntries = getThisMonthEntries(entries);
 
   // میانگین امتیاز
   const avgScore =
