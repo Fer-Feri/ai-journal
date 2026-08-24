@@ -14,7 +14,7 @@ export default function StateCards({ entries }: { entries: Entry[] }) {
       : '0.0';
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex items-stretch justify-center gap-4">
       <div className="border-secondary-border bg-muted flex flex-1 flex-col items-center justify-center gap-4 rounded-md border p-4">
         <p className="text-muted-foreground text-center text-xs">
           روزهای ثبت شده

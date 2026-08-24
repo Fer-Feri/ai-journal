@@ -80,20 +80,20 @@ export default function DashboardPage() {
     }
   };
   return (
-    <main className="flex flex-1 flex-col gap-2 rounded-md p-4">
+    <main className="flex min-w-0 flex-1 flex-col gap-2 rounded-md px-2 py-2 sm:p-4">
       <Header onSave={handleSave} isLoading={isLoading} />
-      <div className="flex flex-1 gap-2">
-        <div className="flex flex-3 flex-col">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2 lg:flex-row">
+        <div className="flex min-h-0 min-w-0 flex-3 flex-col">
           <MoodSelector mood={mood} onMoodChange={setMood} />
           <EntryForm
-            className="flex-1"
+            className="min-h-100 w-full min-w-0 flex-1"
             content={content}
             onContentChange={setContent}
             aiResult={aiResult}
             isLoading={isLoading}
           />
         </div>
-        <div className="bg-card flex flex-1 flex-col gap-8 rounded-md p-2">
+        <div className="bg-card flex min-w-0 flex-1 flex-col gap-8 rounded-md p-2">
           <StateCards entries={entries} />
           <MoodChart entries={entries} />
           <RecentEntries entries={entries} />

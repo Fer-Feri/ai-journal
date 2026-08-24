@@ -18,7 +18,7 @@ export default function EntryForm({
 }: Props) {
   return (
     <div
-      className={`bg-card flex flex-col gap-4 rounded-sm p-4 ${className ?? ''}`}
+      className={`bg-card flex min-h-80 w-full min-w-0 flex-col gap-4 rounded-sm p-3 sm:p-4 ${className ?? ''}`}
     >
       <p className="text-muted-foreground text-sm">یادداشت امروز</p>
 
@@ -26,7 +26,7 @@ export default function EntryForm({
         value={content}
         onChange={(event) => onContentChange(event.target.value)}
         placeholder="امروز چه حسی داشتی؟ اینجا بنویس..."
-        className="flex-1 resize-none"
+        className="w-full min-w-0 flex-1 resize-none"
       />
 
       {/* باکس نتیجه AI — فعلاً placeholder */}

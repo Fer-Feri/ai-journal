@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   const { userId } = await auth();
   if (!userId) redirect('/sign-in');
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen overflow-x-hidden">
       <Siderar />
       {/* <Header /> */}
       <main className="flex min-w-0 flex-1 flex-col">

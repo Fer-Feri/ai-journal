@@ -50,7 +50,7 @@ export default function Sidebar() {
         >
           {isOpen ? (
             <Image
-              src="/icons/close-menu.svg"
+              src="/icons/close-menu.png"
               alt="AI Journal"
               width={40}
               height={40}
@@ -58,7 +58,7 @@ export default function Sidebar() {
             />
           ) : (
             <Image
-              src="/icons/menu.svg"
+              src="/icons/menu.png"
               alt="AI Journal"
               width={40}
               height={40}
