@@ -77,6 +77,18 @@ export default function MoodChart({ entries }: Props) {
           <XAxis dataKey="shortDay" tick={{ fontSize: 11 }} />
           <YAxis domain={[0, 10]} hide />
           <Tooltip
+            contentStyle={{
+              backgroundColor: 'var(--card)',
+              border: '1px solid var(--border)',
+              borderRadius: '0.5rem',
+              color: 'var(--foreground)',
+            }}
+            labelStyle={{
+              color: 'var(--foreground)',
+            }}
+            itemStyle={{
+              color: 'var(--foreground)',
+            }}
             formatter={(value) => [
               value === 0 ? 'ثبت نشده' : `${value}`,
               'امتیاز',

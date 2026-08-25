@@ -42,9 +42,10 @@ export default function HistoryPage() {
         goToPrevMonth={goToPrevMonth}
         goToNextMonth={goToNextMonth}
         isCurrentMonth={isCurrentMonth}
+        entryCount={monthEntries.length}
       />
-      <CalendarGrid />
-      <EntryList />
+      <CalendarGrid currentMonth={currentMonth} entries={monthEntries} />
+      <EntryList entries={monthEntries} />
     </main>
   );
 }

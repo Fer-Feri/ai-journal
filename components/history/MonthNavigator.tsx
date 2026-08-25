@@ -6,6 +6,7 @@ type Props = {
   goToPrevMonth: () => void;
   goToNextMonth: () => void;
   isCurrentMonth: boolean;
+  entryCount: number;
 };
 
 export default function MonthNavigator({
@@ -13,6 +14,7 @@ export default function MonthNavigator({
   goToPrevMonth,
   goToNextMonth,
   isCurrentMonth,
+  entryCount,
 }: Props) {
   const monthYearName = currentMonth.clone().locale('fa').format('MMMM YYYY');
   const monthName = currentMonth.clone().locale('fa').format('MMMM');
@@ -25,15 +27,15 @@ export default function MonthNavigator({
         </div>
 
         <div className="text-muted-foreground text-xs sm:text-sm">
-          {monthYearName} - ۹ یادداشت
+          {monthYearName} - {entryCount} یادداشت
         </div>
       </div>
 
       {/* تغییر ماه */}
       <div className="flex shrink-0 items-center gap-1 sm:gap-2">
         <Button
-          onClick={goToNextMonth}
-          disabled={isCurrentMonth}
+          onClick={goToPrevMonth}
+          disabled={!isCurrentMonth}
           type="button"
           variant="outline"
           className="border-border hover:bg-muted h-8 w-8 cursor-pointer p-0 sm:h-9 sm:w-9"
@@ -46,10 +48,11 @@ export default function MonthNavigator({
         </h2>
 
         <Button
+          onClick={goToNextMonth}
+          disabled={isCurrentMonth}
           type="button"
           variant="outline"
-          onClick={goToPrevMonth}
-          disabled={!isCurrentMonth}
+
           className="border-border hover:bg-muted h-8 w-8 cursor-pointer p-0 disabled:cursor-not-allowed disabled:opacity-30 sm:h-9 sm:w-9"
         >
           ←
