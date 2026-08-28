@@ -46,7 +46,8 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-succes: var(--success);
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
 }

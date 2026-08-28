@@ -2,6 +2,7 @@ import moment from 'jalali-moment';
 import { Button } from '../ui/button';
 
 type Props = {
+  title: string;
   currentMonth: moment.Moment;
   goToPrevMonth: () => void;
   goToNextMonth: () => void;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export default function MonthNavigator({
+  title,
   currentMonth,
   goToPrevMonth,
   goToNextMonth,
@@ -23,7 +25,7 @@ export default function MonthNavigator({
       {/* عنوان + اطلاعات ماه */}
       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3 sm:gap-6">
         <div className="text-sm font-medium sm:text-base md:text-lg">
-          تاریخچه یادداشت‌ها
+          {title}
         </div>
 
         <div className="text-muted-foreground text-xs sm:text-sm">

@@ -65,7 +65,7 @@ export default function EntryList({ entries }: Props) {
               {/* خلاصه AI */}
               {entry.aiSummary && (
                 <div className="border-primary-border bg-primary-bg rounded-lg border px-3 py-2">
-                  <p className="text-primary text-xs leading-5">
+                  <p className="text-succes text-xs leading-5">
                     ✨ {entry.aiSummary}
                   </p>
                 </div>

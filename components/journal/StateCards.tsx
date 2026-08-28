@@ -28,7 +28,7 @@ export default function StateCards({ entries }: { entries: Entry[] }) {
         <p className="text-muted-foreground text-center text-xs">
           میانگین خوشحالی
         </p>
-        <p className="text-succes text-2xl font-bold">{avgScore}</p>
+        <p className="text-success text-2xl font-bold">{avgScore}</p>
         <p className="text-muted-foreground text-xs font-bold">از 10</p>
       </div>
     </div>
