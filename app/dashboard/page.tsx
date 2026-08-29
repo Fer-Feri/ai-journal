@@ -9,11 +9,13 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/layout/Header';
 import { Entry } from '@/types/index';
 import { toast } from 'sonner';
+import DashboardSkeleton from '@/components/ui/dashboard-skeleton';
 
 export default function DashboardPage() {
   const [content, setContent] = useState('');
   const [mood, setMood] = useState('خوب');
   const [isLoading, setIsLoading] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [aiResult, setAiResult] = useState<{
     score: number;
     summary: string;
@@ -43,6 +45,8 @@ export default function DashboardPage() {
             summary: todayEntry.aiSummary,
           });
         }
+
+        setIsPageLoading(false);
       });
   }, []);
   // ================================
@@ -79,6 +83,9 @@ export default function DashboardPage() {
       setIsLoading(false);
     }
   };
+
+  if (isPageLoading) return <DashboardSkeleton />;
+
   return (
     <main className="flex min-w-0 flex-1 flex-col gap-2 rounded-md px-2 py-2 sm:p-4">
       <Header onSave={handleSave} isLoading={isLoading} />

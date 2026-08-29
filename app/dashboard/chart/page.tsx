@@ -4,6 +4,7 @@ import MoodBarChart from '@/components/chart/MoodBarChart';
 import MoodDistribution from '@/components/chart/MoodDistribution';
 import MoodState from '@/components/chart/MoodState';
 import MonthNavigator from '@/components/history/MonthNavigator';
+import PageSkeleton from '@/components/ui/page-skeleton';
 import { Entry } from '@/types/index';
 import moment from 'jalali-moment';
 import { useEffect, useState } from 'react';
@@ -11,11 +12,15 @@ import { useEffect, useState } from 'react';
 export default function ChartPage() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [currentMonth, setCurrentMonth] = useState(() => moment());
+  const [isPageLoading, setIsPageLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/entries')
       .then((response) => response.json())
-      .then((data) => setEntries(data.entries ?? []));
+      .then((data) => {
+        setEntries(data.entries ?? []);
+        setIsPageLoading(false);
+      });
   }, []);
 
   const goToPrevMonth = () =>
@@ -33,6 +38,9 @@ export default function ChartPage() {
       date.format('YYYY') === currentMonth.locale('fa').format('YYYY')
     );
   });
+
+  if (isPageLoading) return <PageSkeleton hasChart />;
+
   return (
     <main className="flex flex-1 flex-col gap-4 p-6">
       <MonthNavigator

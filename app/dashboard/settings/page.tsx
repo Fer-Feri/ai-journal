@@ -1,16 +1,19 @@
 'use client';
 
+import PageSkeleton from '@/components/ui/page-skeleton';
 import { useTheme } from '@/lib/theme-context';
 import { SignOutButton, useUser } from '@clerk/nextjs';
 
 export default function SettingsPage() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const { theme, toggleTheme } = useTheme();
 
   const firstName = user?.firstName ?? '';
   const lastName = user?.lastName ?? '';
   const email = user?.emailAddresses?.[0]?.emailAddress ?? '';
   const initial = firstName.charAt(0) || '؟';
+
+  if (!isLoaded) return <PageSkeleton hasSettings />;
 
   return (
     <main className="flex min-w-0 flex-1 flex-col gap-4 p-3 sm:p-4 md:p-6">
