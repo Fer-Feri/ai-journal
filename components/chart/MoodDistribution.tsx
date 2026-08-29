@@ -38,3 +38,5 @@ export default function MoodDistribution({ entries }: Props) {
     </div>
   );
 }
+
+
